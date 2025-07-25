@@ -7,8 +7,10 @@ from .models import Librarian
 from .models import Author
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth import login
 # Create your views here.
 from django.http import JsonResponse
 
