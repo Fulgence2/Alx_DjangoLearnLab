@@ -35,12 +35,13 @@ def library_by_librarian(library):
     except Library.DoesNotExist:
         return []
 
-def books_by_library(library_name):
+def books_in_library(library_name):
     try:
-        library = ["Library.objects.get(name=library_name)", "objects.filter(library=library)"]
+        library = Library.objects.get(name=library_name)
         return library.books.all()
     except Library.DoesNotExist:
         return []
+
 
 if __name__ == '__main__':
     print("Books by author 'John Doe':", books_by_author("John Doe"))
