@@ -1,5 +1,5 @@
 from msilib.schema import ListView
-
+from django.views.generic.detail import DetailView
 from aiohttp.web_urldispatcher import View
 from django.shortcuts import render
 from .models import Book
