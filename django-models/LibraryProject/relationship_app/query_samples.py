@@ -28,12 +28,14 @@ def librarians_by_library(library):
     except Library.DoesNotExist:
         return []
 
-def library_by_librarian(library):
+# === Query 3: Retrieve the librarian for a specific library ===
+def librarian_of_library(library_name):
     try:
-        library = ["Library.objects.get(name=library_name)", "objects.filter(library=library)"]
-        return Library.objects.filter(library__in=library)
-    except Library.DoesNotExist:
-        return []
+        # Get the librarian directly via the related OneToOneField
+        library = Library.objects.get(name=library_name)
+        return Librarian.objects.get(library=library)
+    except (Library.DoesNotExist, Librarian.DoesNotExist):
+        return None
 
 def books_in_library(library_name):
     try:
