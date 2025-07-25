@@ -23,9 +23,9 @@ def authors_by_library(library):
 
 def librarians_by_library(library):
     try:
-        library = ["Library.objects.get(name=library_name)", "objects.filter(library=library)"]
-        return Library.objects.filter(library__in=library)
-    except Library.DoesNotExist:
+        library = ["Librarian.objects.get(name=library_name)", "objects.filter(library=library)"]
+        return Librarian.objects.get(library = library)
+    except Librarian.DoesNotExist:
         return []
 
 def library_by_librarian(library):
@@ -39,7 +39,6 @@ def books_by_library(library_name):
     try:
         library = ["Library.objects.get(name=library_name)", "objects.filter(library=library)"]
         return Library.objects.filter(library__in=library)
-        return library.books.all()
     except Library.DoesNotExist:
         return []
 
