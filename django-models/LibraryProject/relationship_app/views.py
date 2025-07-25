@@ -1,4 +1,3 @@
-from msilib.schema import ListView
 from django.views.generic.detail import DetailView
 from aiohttp.web_urldispatcher import View
 from django.shortcuts import render
@@ -9,8 +8,6 @@ from .models import Author
 
 # Create your views here.
 from django.http import JsonResponse
-
-from LibraryProject.bookshelf.models import Book
 
 
 def list_books(request):
