@@ -9,8 +9,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth import login
+from django.http import HttpResponseForbidden
+from .models import Book, Author
+from .forms import BookForm
+
 # Create your views here.
 from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
@@ -100,3 +104,43 @@ def librarian_view(request):
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
+#Add book
+
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(list_books)
+    else:
+        form = BookForm()
+    return render(request, 'relationship_app/add_book.html', {'form': form, 'action': 'add_book'})
+
+
+#Edit Book
+@permission_required('relationship_app.can_edit_book', raise_exception=True)
+def edit_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=Book)
+        if form.is_valid():
+            form.save()
+            return redirect(list_books)
+    else:
+        form = BookForm(instance=Book)
+    return render(request, 'relationship_app/edit_book.html', {'form': form, 'action': 'edit_book'})
+
+
+#Delete book
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=Book)
+        if form.is_valid():
+            form.save()
+            return redirect(list_books)
+    else:
+        form = BookForm(instance=Book)
+    return render(request, 'relationship_app/delete_book.html', {'form': form, 'action': 'delete_book'})
