@@ -38,11 +38,11 @@ def library_by_librarian(library):
 def books_by_library(library_name):
     try:
         library = ["Library.objects.get(name=library_name)", "objects.filter(library=library)"]
-        return Library.objects.filter(library__in=library)
+        return library.books.all()
     except Library.DoesNotExist:
         return []
 
 if __name__ == '__main__':
     print("Books by author 'John Doe':", books_by_author("John Doe"))
     print("Books in library 'Central Library':", books_by_library("Central Library"))
-    print("Librarian of 'Central Library':", librarians_by_library("Central Library"))
+    print("Librarian of 'Central Library':", librarian_by_library("Central Library"))
