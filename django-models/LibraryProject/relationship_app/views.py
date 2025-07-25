@@ -120,7 +120,7 @@ def add_book(request):
 
 
 #Edit Book
-@permission_required('relationship_app.can_edit_book', raise_exception=True)
+@permission_required('relationship_app.can_change_book', raise_exception=True)
 def edit_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST, instance=Book)
