@@ -9,9 +9,9 @@ class MyModel(models.Model):
     )
     class Meta:
         permissions = [
-            ("can_add_book", "Can add book"),
-            ("can_change_book", "Can change book"),
-            ("can_delete_book", "Can delete book"),
+            ("can_create", "Can add book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
         ]
 
 # Create your models here.
