@@ -6,7 +6,11 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.conf import settings
 
 class MyModel(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='relationship_mymodels'  # 👈 unique to relationship_app
+    )
 
 # Create your models here.
 class Relationship(models.Model):
