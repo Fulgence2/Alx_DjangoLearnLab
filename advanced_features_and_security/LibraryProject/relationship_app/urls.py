@@ -4,7 +4,7 @@ from . import views
 from django.contrib.auth.views import LoginView
 from django.urls import path
 from pyasn1_modules.rfc7906 import Register
-
+from django.contrib.auth.views import LoginView, LogoutView
 from .views import list_books, LibraryDetailView, login_view, logout_view, register_view
 
 urlpatterns = [
