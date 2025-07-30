@@ -7,6 +7,12 @@ class MyModel(models.Model):
         on_delete=models.CASCADE,
         related_name='bookshelf_mymodels'  # 👈 unique to bookshelf
     )
+    class Meta:
+        permissions = [
+            ("can_add_book", "Can add book"),
+            ("can_change_book", "Can change book"),
+            ("can_delete_book", "Can delete book"),
+        ]
 
 # Create your models here.
 class Book(models.Model):
