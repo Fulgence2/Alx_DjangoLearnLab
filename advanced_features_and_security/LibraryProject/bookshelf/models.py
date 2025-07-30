@@ -12,6 +12,7 @@ class MyModel(models.Model):
             ("can_create", "Can add book"),
             ("can_edit", "Can edit book"),
             ("can_delete", "Can delete book"),
+            ("can_view", "Can view book"),
         ]
 
 # Create your models here.
