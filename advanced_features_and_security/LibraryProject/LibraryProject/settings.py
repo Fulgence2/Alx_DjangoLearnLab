@@ -154,3 +154,4 @@ CSP_SCRIPT_SRC = ("'self'",)
 CSP_IMG_SRC = ("'self'", 'data:')
 
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
