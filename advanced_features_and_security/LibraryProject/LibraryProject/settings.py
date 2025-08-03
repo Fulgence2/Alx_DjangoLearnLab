@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c6e8ewbq0_)dp*lde#j10fa%gn)drjelnqei=@%d9mr&8a9@ly'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
+
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -124,3 +126,31 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ✅ Browser security headers
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# X-Frame-Options set to DENY to prevent clickjacking
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+
+# ✅ CSRF and Session cookies are set to secure to enforce HTTPS-only transmission
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# ✅ Redirect all HTTP traffic to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# ✅ HSTS (HTTP Strict Transport Security)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# ✅ CSP headers added to reduce XSS risks by controlling resource loading
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_IMG_SRC = ("'self'", 'data:')
+
+

@@ -7,5 +7,10 @@
 <body>
     <h1>Welcome Member {{ user.username }}</h1>
     <p>You can browse and borrow books.</p>
+    <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+    </form>
 </body>
 </html>

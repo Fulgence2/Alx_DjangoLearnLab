@@ -15,5 +15,10 @@
         <li>No books available in this library.</li>
         {% endfor %}
     </ul>
+    <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
