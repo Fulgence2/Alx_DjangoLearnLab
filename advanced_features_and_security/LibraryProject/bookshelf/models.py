@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 class MyModel(models.Model):
     user = models.ForeignKey(
@@ -24,3 +25,18 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+class CustomUser(AbstractUser):
+    date_of_birth = models.DateField()
+    profile_photo = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="profile_photos",
+        default="profile_photos/default.jpg"
+    )
+    def __str__(self):
+        return self.username
+    class Meta:
+        permissions = [
+            ("can_create", "Can add book"),
+            ("can_edit", "Can edit book"),
+        ]
