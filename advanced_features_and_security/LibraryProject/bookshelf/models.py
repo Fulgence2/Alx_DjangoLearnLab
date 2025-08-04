@@ -41,7 +41,7 @@ class CustomUser(AbstractUser):
             ("can_edit", "Can edit book"),
         ]
 
-class CustomUserAdmin(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     use_in_migrations = True
     def _create_user(self, email, password, **extra_fields):
         email = self.normalize_email(email)
@@ -55,3 +55,7 @@ class CustomUserAdmin(BaseUserManager):
             email=self.normalize_email(email),
             **extra_fields
         )
+
+
+class CustomUserAdmin(CustomUser):
+    use_in_migrations = False
