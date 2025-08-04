@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Book
+from .models import *
+class BookAdmin(admin.ModelAdmin):
+    fieldsets = []
+
+admin.site.register(CustomUser, CustomUserAdmin)
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
