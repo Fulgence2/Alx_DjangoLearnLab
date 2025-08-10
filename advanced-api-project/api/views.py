@@ -6,6 +6,7 @@ from .serializers import UserSerializer
 from .serializers import BookSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django.shortcuts import render
+from django_filters import rest_framework
 
 # Create your views here.
 class UserListView(generics.ListAPIView):
