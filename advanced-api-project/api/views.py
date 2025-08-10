@@ -1,63 +1,86 @@
-from rest_framework import generics, permissions, filters, viewsets
-from django_filters.rest_framework import DjangoFilterBackend
-from django.contrib.auth.models import User
-from .models import Book
-from .serializers import UserSerializer
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+from .models import Author, Book
 from .serializers import BookSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from django.shortcuts import render
-from django_filters import rest_framework
+from rest_framework import generics
+from .serializers import AuthorSerializer
 
-# Create your views here.
-class UserListView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    # Add filtering, searching, and ordering
-    filter_backends = [
-        DjangoFilterBackend,
-        filters.SearchFilter,
-        filters.OrderingFilter
-    ]
-
-# Fields available for filtering
-    filterset_fields = ['title', 'author', 'publication_year']
-
-    # Fields available for search (partial match)
-    search_fields = ['title', 'author']
-
-    # Fields available for ordering
-    ordering_fields = ['title', 'publication_year']
-
-    # Default ordering
-    ordering = ['title']
-
-
-# List all books (public)
+# List all books
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
 
-# Retrieve a single book (public)
+class AuthorDetailView(generics.RetrieveAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    lookup_field = 'id'
+
+
+class AuthorListView(generics.ListAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+# Get details of a single book
 class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
 
-# Create a new book (authenticated only)
+# Create a new book
 class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
-# Update a book (authenticated only)
+# Update an existing book
 class BookUpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
-# Delete a book (authenticated only)
+# Delete a book
 class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
+class BookAPITests(APITestCase):
+
+    def setUp(self):
+        self.author = Author.objects.create(name="Author 1")
+        self.book = Book.objects.create(
+            title="Test Book",
+            publication_year=2023,
+            author=self.author
+        )
+
+    def test_get_all_books(self):
+        url = reverse('book-list')  # You need to make sure this matches your urls.py name
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertGreaterEqual(len(response.data), 1)
+
+    def test_get_single_book(self):
+        url = reverse('book-detail', kwargs={'pk': self.book.pk})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], self.book.title)
+
+    def test_get_non_existent_book(self):
+        url = reverse('book-detail', kwargs={'pk': 999})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class UserAPITests(APITestCase):
+
+    def setUp(self):
+        # Create a sample user
+        self.user = Author.objects.create(name="Another Author")
+        self.book = Book.objects.create(
+            title="Another Test Book",
+            publication_year=2024,
+            author=self.user
+        )
+
+    def test_get_users_list(self):
+        url = reverse('user-list')  # Make sure this matches your urls.py name
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
