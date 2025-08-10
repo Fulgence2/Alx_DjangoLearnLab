@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e5c2717-f4ce-46d7-ac46-b169db459494" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ALX/django-models/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ALX/django-models/.idea/Introduction_to_Django.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ALX/django-models/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
@@ -4428,21 +4430,9 @@
       <change beforePath="$PROJECT_DIR$/../ALX/django-models/venv/lib/python3.9/site-packages/typing_extensions-4.14.1.dist-info/licenses/LICENSE" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ALX/django-models/venv/lib/python3.9/site-packages/typing_extensions.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ALX/django-models/venv/pyvenv.cfg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api_project/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api_project/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api_project/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api_project/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/api_project/wsgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_project/manage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_project/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../django-models/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../django-models/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../django-models/LibraryProject/relationship_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../django-models/LibraryProject/relationship_app/urls.py" afterDir="false" />
     </list>
@@ -4451,12 +4441,19 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="316XSyUeUOFQ2TP41A8psOrHAwK" />
   <component name="ProjectViewState">
     <option name="foldersAlwaysOnTop" value="false" />
@@ -4465,15 +4462,15 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/fulgence/PycharmProjects/api_project"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/fulgence/PycharmProjects/api_project&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="api_project" />
