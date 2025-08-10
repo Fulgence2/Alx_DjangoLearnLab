@@ -33,3 +33,16 @@ class AuthorBookAPITests(APITestCase):
         url = reverse('book-detail', args=[self.book.id])  # Adjust route name
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class BookListViewTest(APITestCase):
+    def test_book_list_view(self):
+        author = Author.objects.create(name="Test Author")
+        Book.objects.create(
+            title="Test Book",
+            author=author,  # ✅ Pass the Author instance
+            publication_year=2024
+        )
+        url = reverse('book-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('title', response.data[0])  # ✅ Uses response.data
