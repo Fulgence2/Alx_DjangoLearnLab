@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Author, Book
+from django.contrib.auth.models import User
 import datetime
 
 # Serializes Book model
@@ -24,3 +25,8 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = ['id', 'name', 'books']
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name']
