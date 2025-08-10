@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import Book
 from .serializers import UserSerializer
 from .serializers import BookSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
