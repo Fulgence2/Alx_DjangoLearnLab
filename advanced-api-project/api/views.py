@@ -5,6 +5,7 @@ from .models import Author, Book
 from .serializers import BookSerializer
 from rest_framework import generics
 from .serializers import AuthorSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 # List all books
 class BookListView(generics.ListAPIView):
