@@ -1,5 +1,5 @@
 from django.urls import reverse
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, filters
 from rest_framework.test import APITestCase
 from .models import Author, Book
 from .serializers import BookSerializer
@@ -7,7 +7,6 @@ from rest_framework import generics
 from .serializers import AuthorSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters import rest_framework
-from rest_framework import filters
 
 # List all books
 class BookListView(generics.ListAPIView):
@@ -92,7 +91,8 @@ class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = '__all__'
     filterset_fields = '__all__'
     ordering = ('-publication_year',)
+    search_fields = ('title', 'author__name')
