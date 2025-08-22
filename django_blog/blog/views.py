@@ -109,6 +109,15 @@ def add_comment(request, post_id):
         comment_form = CommentForm()
     return redirect("blog:post_detail", post_id)
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = ['comment']
+    success_url = reverse_lazy('blog:post_detail')
+    template_name = 'blog/comment_form.html'
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+
+
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
     form_class = CommentForm
