@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Details</title>
+</head>
+<body>
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ object.title }}</h2>
+<p>{{ object.content }}</p>
+<p><small>Written by {{ object.author }} on {{ object.created_at|date:"M d, Y" }}</small></p>
+
+{% if user == object.author %}
+  <a href="{% url 'post-edit' object.pk %}">✏️ Edit</a>
+  <a href="{% url 'post-delete' object.pk %}">🗑️ Delete</a>
+{% endif %}
+<a href="{% url 'post-list' %}">⬅ Back to Posts</a>
+{% endblock %}
+
+</body>
+</html>
