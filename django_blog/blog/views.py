@@ -13,10 +13,7 @@ from django.db.models import Q
 
 def search_posts(request):
     query = request.GET.get('q', "")
-    results = Post.objects.all()
-
-    if query:
-        results = results.filter(
+    results = Post.objects.filter(
             Q(title__icontains=query) |
             Q(content__icontains=query) |
             Q(tag__name__icontains=query)
