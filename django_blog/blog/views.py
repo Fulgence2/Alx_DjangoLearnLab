@@ -8,8 +8,25 @@ from django.views.generic import DetailView, ListView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from .forms import RegistrationForm, ProfileForm, UserUpdateForm, PostForm, CommentForm, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post
+from .models import Post, Tag
+from django.db.models import Q
 
+def search_posts(request):
+    query = request.GET.get('q', "")
+    results = Post.objects.all()
+
+    if query:
+        results = results.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tag__name__icontains=query)
+        ).distinct()
+    return render(request, 'blog/search.html', {'results': results, 'query': query})
+
+def posts_by_tag(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    posts = tag.posts.all()
+    return render(request, 'blog/posts_by_tag.html', {'posts': posts, 'tag': tag})
 
 class PostListView(ListView):
     model = Post
@@ -95,19 +112,22 @@ def profile(request):
 
     return render(request, "blog/profile.html", {"user_form": user_form, "profile_form": profile_form})
 
-def add_comment(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+@login_required
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
     if request.method == "POST":
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
             comment.post = post
             comment.author = request.user
             comment.save()
-            return redirect("blog:post_detail", post_id)
+            return redirect("post-detail", pk=post.pk)
     else:
-        comment_form = CommentForm()
-    return redirect("blog:post_detail", post_id)
+        form = CommentForm()
+
+    return render(request, "blog/comment_form.html", {"form": form, "post": post})
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment

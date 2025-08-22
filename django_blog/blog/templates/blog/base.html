@@ -17,12 +17,20 @@
             </ul>
         </nav>
     </header>
+    <form method="get" action="{% url 'search-posts' %}">
+      <input type="text" name="q" placeholder="Search posts..." value="{{ request.GET.q }}">
+      <button type="submit">Search</button>
+    </form>
 
     <div class="content">
         {% block content %}
         <!-- Page-specific content goes here -->
         {% endblock %}
     </div>
+<form method="get" action="{% url 'search-posts' %}">
+  <input type="text" name="q" placeholder="Search posts..." value="{{ request.GET.q }}">
+  <button type="submit">Search</button>
+</form>
 
     <footer>
         <p>&copy; 2024 Django Blog</p>
