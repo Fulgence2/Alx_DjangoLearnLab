@@ -5,6 +5,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
+from taggit.managers import TaggableManager
+from taggit.forms import TagWidget
+
 
 # Create your models here.
 
