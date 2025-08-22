@@ -12,8 +12,28 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+# --- Authentication redirects ---
+LOGIN_URL = 'blog:login'
+LOGIN_REDIRECT_URL = 'blog:profile' # After successful login
+LOGOUT_REDIRECT_URL = 'blog:login'
+
+# --- Messages (already present in most projects) ---
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+messages.DEBUG: 'debug',
+messages.INFO: 'info',
+messages.SUCCESS: 'success',
+messages.WARNING: 'warning',
+messages.ERROR: 'danger',
+}
+
+# --- Media (for profile avatar) ---
+from pathlib import Path
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,7 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'blog',
 ]
 
@@ -124,7 +144,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / "blog/static",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
