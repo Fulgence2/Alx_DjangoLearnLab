@@ -39,10 +39,13 @@ class PostForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ("content",)
+        fields = ["content"]
         widgets = {
-            "content": forms.Textarea(attrs={"rows": 4, "placeholder": "Add a comment..."}),
-            "author": forms.HiddenInput,
-            "author_email": forms.HiddenInput,
-            "author_avatar": forms.HiddenInput,
+            "content": forms.Textarea(attrs={"rows": 3, "placeholder": "Write a comment..."})
         }
+
+    def clean_content(self):
+        content = self.cleaned_data.get("content", "").strip()
+        if not content:
+            raise forms.ValidationError("Comment cannot be empty.")
+        return content
