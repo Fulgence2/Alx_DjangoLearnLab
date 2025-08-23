@@ -23,6 +23,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data.get("email", ""),
             password=validated_data["password"],
         )
+        # Generate token
+        Token.objects.create(user=user)
         return user
 
 class LoginSerializer(serializers.Serializer):
