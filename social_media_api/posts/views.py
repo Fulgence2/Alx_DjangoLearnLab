@@ -30,14 +30,12 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.select_related("author", "post").all()
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
     pagination_class = DefaultPagination
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ["post"]          # /api/comments/?post=<post_id>
     search_fields = ["content"]
-    ordering_fields = ["created_at", "updated_at"]
-
+    ordering_fields = ["created_at", "updated_at", "content"]
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
