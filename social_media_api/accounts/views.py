@@ -6,6 +6,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
+from .models import User as CustomUser
 
 # Create your views here.
 from .serializers import (
@@ -55,8 +56,10 @@ class ProfileView(RetrieveUpdateAPIView):
     def patch(self, request, *args, **kwargs):
         return super().patch(request, *args, **kwargs)
 
-class FollowUserView(APIView):
-    permission_classes = [IsAuthenticated]
+class FollowUserView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,
+                          permissions.IsAuthenticatedOrReadOnly,)
+    queryset = CustomUser.objects.all()
 
     def post(self, request, user_id):
         try:
@@ -66,8 +69,10 @@ class FollowUserView(APIView):
         except User.DoesNotExist:
             return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class UnfollowUserView(APIView):
-    permission_classes = [IsAuthenticated]
+class UnfollowUserView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,
+                          permissions.IsAuthenticatedOrReadOnly,)
+    queryset = CustomUser.objects.all()
 
     def post(self, request, user_id):
         try:
