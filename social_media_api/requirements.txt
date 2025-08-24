@@ -34,6 +34,7 @@ cryptography==45.0.4
 cycler==0.12.1
 cymem==2.0.11
 dask==2022.10.2
+dj-database-url==3.0.1
 Django==4.2.23
 django-csp==4.0
 django-filter==25.1

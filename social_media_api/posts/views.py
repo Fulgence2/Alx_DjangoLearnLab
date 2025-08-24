@@ -21,6 +21,40 @@ class DefaultPagination(PageNumberPagination):
     page_size = 10
 
 
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    pagination_class = DefaultPagination
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('title', 'content')
+    ordering_fields = ('id', 'title', 'content')
+    permission_classes = (IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly)
+    def get_queryset(self):
+        queryset = Post.objects.all()
+        if self.request.user.is_authenticated:
+            queryset = queryset.filter(user=self.request.user)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorOrReadOnly]
+    pagination_class = DefaultPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    search_fields = ["content"]
+    ordering_fields = ["created_at", "updated_at", "content"]
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        # Get all posts from users that the current user follows
+        following_users = self.request.user.following.all()
+        return Post.objects.filter(author__in=following_users).order_by("-created_at")
+
 class LikePostView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
